@@ -1,0 +1,16 @@
+# This file is part of the ansible-roboshop-roles project.
+- name: app setup 
+  include_role:
+    name: common
+    tasks_from: app-setup  # include common tasks for application setup
+
+- name: nodejs setup
+  include_role:
+    name: common
+    tasks_from: nodejs  # include common tasks for Node.js setup
+
+- name: systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd  # include common tasks for systemd setup
+

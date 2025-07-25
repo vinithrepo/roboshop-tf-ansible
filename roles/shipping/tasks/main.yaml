@@ -1,0 +1,29 @@
+- name: app setup
+  include_role: # include the common role for app setup
+    name: common
+    tasks_from: app-setup
+
+- name: maven setip
+  include_role:
+    name: common
+    tasks_from: maven  # include common tasks for Maven setup
+
+- name: import data
+  tags: # import spacific data into MySQL database
+  - import
+  community.mysql.mysql_db:
+    name: all
+    login_user: "{{ MYSQL_ROOT_USER }}"             # run this task when instance is created
+    login_password: "{{ MYSQL_ROOT_PASSWORD }}"   # run this task when instance is created
+    login_host: "{{ MYSQL_HOST }}"       # when instance is created, mysql.devops84.shop
+    state: import
+    target: "{{ item }}"
+  loop:
+  - /app/db/schema.sql
+  - /app/db/app-user.sql
+  - /app/db/master-data.sql
+
+- name: systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd  # include common tasks for systemd setup

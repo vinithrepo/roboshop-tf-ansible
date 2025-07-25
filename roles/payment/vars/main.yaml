@@ -1,0 +1,5 @@
+CART_HOST: cart.backend-{{ env }}.devops84.shop
+USER_HOST: user.backend-{{ env }}.devops84.shop
+RABBITMQ_HOST: rabbitmq-{{ env }}.devops84.shop
+RABBITMQ_USER: roboshop
+RABBITMQ_PASSWORD: roboshop123

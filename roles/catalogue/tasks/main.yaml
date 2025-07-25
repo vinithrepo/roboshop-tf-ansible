@@ -1,0 +1,37 @@
+# This is the main task file for the catalogue role in the Ansible playbook
+- name: app setup 
+  include_role:
+    name: common
+    tasks_from: app-setup  # include common tasks for application setup
+  
+- name: nodejs setup 
+  include_role:
+    name: common
+    tasks_from: nodejs  # include common tasks for Node.js setup
+
+- name: copy mongo repo
+  ansible.builtin.copy: # copy the MongoDB repository file to the yum repository directory
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongodb
+  ansible.builtin.dnf:  # install the MongoDB server package
+    name: mongodb-mongosh
+    state: present
+
+- name: check products loaded or not # check if the 'catalogue' database loaded or not
+  ansible.builtin.command: mongosh --host {{ MONGODB_HOST }} --eval 'db.getMongo().getDBNames().indexOf("catalogue")' # this command returns the index of the 'catalogue' database in the list of databases
+  register: catalogue_output
+
+- name: print catalogue output # debug task to print the output of the previous command
+  ansible.builtin.debug:  # this will show the index of the 'catalogue' database, -1 means it does not exist
+    msg: "{{ catalogue_output }}" # this will print the output of the previous command line 71 lo registered in the variable 'catalogue_output'
+
+- name: load products # if the 'catalogue' database does not exist, load the master data into it line 69-71
+  ansible.builtin.shell: mongosh --host {{ MONGODB_HOST }} < /app/db/master-data.js # this command loads the master data into the 'catalogue' database 
+  when: catalogue_output.stdout | int < 0 # this condition checks if the index of the 'catalogue' database is less than 0, meaning it does not exist
+
+- name: systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd.yaml

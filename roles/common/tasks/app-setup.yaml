@@ -1,0 +1,22 @@
+- name: create app directory
+  ansible.builtin.file:  # create a directory for the application
+    path: /app
+    state: directory
+
+- name: add system user
+  ansible.builtin.user: # create a system user for the application
+    name: roboshop
+    shell: /sbin/nologin
+    home: /app
+    system: true
+
+- name: "download {{ component }} code"
+  ansible.builtin.get_url: # download the catalogue code from the remote repository
+    url: "https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip"
+    dest: /tmp/{{ component }}.zip
+
+- name: "unzip {{ component }} code"
+  ansible.builtin.unarchive: # extract or unzip the downloaded zip file to the application directory
+    src: "/tmp/{{ component }}.zip"
+    dest: /app
+    remote_src: yes # this means the source file is already on the remote catalogue server

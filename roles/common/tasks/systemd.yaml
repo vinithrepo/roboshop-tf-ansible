@@ -1,0 +1,15 @@
+- name: Copy {{ component }} service file
+  ansible.builtin.template: # copy the systemd service file for the catalogue application
+  # template module is used to different environment variables in the service file
+    src: "{{ component }}.service.j2" # this is a Jinja2 template file for the service configuration
+    dest: "/etc/systemd/system/{{ component }}.service"
+
+- name: systemctl daemon reload
+  ansible.builtin.systemd_service: # daemon reload to recognize the new service file
+    daemon_reload: true
+
+- name: start and enable {{ component }}
+  ansible.builtin.service: # start the catalogue service and enable line 46 # it to start on boot
+    name: "{{ component }}"
+    state: restarted # even app is not running, we need to restart it
+    enabled: yes
