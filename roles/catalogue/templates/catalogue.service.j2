@@ -8,7 +8,7 @@ Environment=MONGO=true
 Environment=MONGO_URL="mongodb://mongodb-dev.vinithaws.online:27017/{{component}}"
 // highlight-end
 ExecStart=/bin/node /app/server.js
-SyslogIdentifier={{catalogue}}
+SyslogIdentifier={{component}}
 
 [Install]
 WantedBy=multi-user.target
