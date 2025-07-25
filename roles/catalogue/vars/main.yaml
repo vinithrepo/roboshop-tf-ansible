@@ -1,1 +1,1 @@
-MONGODB_HOST: "mongodb-{{ env }}.devops84.shop"
+component: catalogue

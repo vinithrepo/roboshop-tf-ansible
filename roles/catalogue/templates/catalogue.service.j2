@@ -5,10 +5,10 @@ Description = Catalogue Service
 User=roboshop
 Environment=MONGO=true
 // highlight-start
-Environment=MONGO_URL="mongodb://{{ MONGODB_HOST }}:27017/catalogue"
+Environment=MONGO_URL="mongodb://mongodb-dev.vinithaws.online:27017/{{catalogue}}"
 // highlight-end
 ExecStart=/bin/node /app/server.js
-SyslogIdentifier=catalogue
+SyslogIdentifier={{catalogue}}
 
 [Install]
 WantedBy=multi-user.target

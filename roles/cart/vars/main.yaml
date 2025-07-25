@@ -1,2 +1,1 @@
-REDIS_HOST: redis-{{ env }}.devops84.shop
-CATALOGUE_HOST: catalogue.backend-{{ env }}.devops84.shop
+component: cart

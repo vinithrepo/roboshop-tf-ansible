@@ -1,5 +1,5 @@
-CART_HOST: cart.backend-{{ env }}.devops84.shop
-MYSQL_HOST: mysql-{{ env }}.devops84.shop
+CART_HOST: cart-dev.vinithaws.online
+MYSQL_HOST: mysql-dev.vinithaws.online
 MYSQL_ROOT_USER: root
 MYSQL_ROOT_PASSWORD: RoboShop@1
 

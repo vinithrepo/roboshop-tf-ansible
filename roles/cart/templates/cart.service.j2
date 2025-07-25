@@ -3,12 +3,12 @@ Description = Cart Service
 [Service]
 User=roboshop
 // highlight-start
-Environment=REDIS_HOST={{ REDIS_HOST }}
-Environment=CATALOGUE_HOST={{ CATALOGUE_HOST }}
+Environment=REDIS_HOST=redis-dev.vinithaws.online
+Environment=CATALOGUE_HOST=catalogue-dev.vinithaws.online
 Environment=CATALOGUE_PORT=80
 // highlight-end
 ExecStart=/bin/node /app/server.js
-SyslogIdentifier=cart
+SyslogIdentifier={{cart}}
 
 [Install]
 WantedBy=multi-user.target
