@@ -16,7 +16,7 @@ Environment=AMQP_PASS={{ RABBITMQ_PASSWORD }}
 
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 ExecStop=/bin/kill -9 $MAINPID
-SyslogIdentifier={{payment}}
+SyslogIdentifier={{component}}
 
 [Install]
 WantedBy=multi-user.target

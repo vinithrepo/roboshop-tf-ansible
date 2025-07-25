@@ -8,7 +8,7 @@ Environment=CART_ENDPOINT=cart-dev.vinithaws.online:80
 Environment=DB_HOST=mysql-dev.vinithaws.online
 // highlight-end
 ExecStart=/bin/java -jar /app/shipping.jar
-SyslogIdentifier=shipping
+SyslogIdentifier={{component}}
 
 [Install]
 WantedBy=multi-user.target
